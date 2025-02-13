@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+/* Add Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Remove layer and make styles more specific */
+main {
+  @apply min-h-screen flex flex-col items-center justify-center text-center px-4;
+}
+
+main h1 {
+  @apply text-[2.5rem] md:text-[4rem];
+  font-family: Monaco, monospace;
+  background: linear-gradient(to right, #60A5FA, #818CF8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+main p {
+  font-family: Monaco, monospace;
+  @apply text-lg text-gray-400 mb-6;
+  line-height: 1.6;
+}
+
+.button-container {
+  @apply flex gap-4;
+}
+
+button {
+  @apply px-6 py-2 rounded-full transition;
+}
+
+button:first-child {
+  @apply bg-blue-500 text-white hover:bg-blue-600;
+}
+
+button:last-child {
+  @apply bg-gray-800 text-white hover:bg-gray-700;
+} 
