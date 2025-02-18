@@ -1,74 +1,132 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaDownload } from 'react-icons/fa6';
+
+interface GithubUrl {
+  label: string;
+  url: string;
+}
+
+interface DownloadUrl {
+  label: string;
+  url: string;
+}
 
 interface ProjectCardProps {
   title: string;
   description: string;
-  link: string;
-  tags: string[];
   image: string;
+  tags: string[];
+  githubUrl?: string;
+  demoUrl?: string;
+  githubUrls?: GithubUrl[];
+  downloadUrls?: DownloadUrl[];
 }
 
-const ProjectCard = ({ title, description, link, tags, image }: ProjectCardProps) => {
+export default function ProjectCard({ 
+  title, 
+  description, 
+  image, 
+  tags, 
+  githubUrl, 
+  demoUrl,
+  githubUrls,
+  downloadUrls 
+}: ProjectCardProps) {
+  const isMultiRepo = Boolean(githubUrls);
+
   return (
     <motion.div
-      className="group relative bg-gray-50 dark:bg-white/5 backdrop-blur-lg rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 transition-all duration-300"
-      whileHover={{ y: -5 }}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
     >
-      <div className="aspect-video relative overflow-hidden">
-        <Image
-          src={image}
-          alt={title}
-          fill
-          className="object-cover transition-transform duration-300 group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-      </div>
+      <img src={image} alt={title} className="w-full h-48 object-cover" />
+      
       <div className="p-6">
-        <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-[#60a5fa] to-[#a78bfa] bg-clip-text text-transparent">
-          {title}
-        </h3>
-        <p className="text-[#636e72] dark:text-[#b2bec3] mb-4">
+        <div className="flex justify-between items-start mb-4">
+          <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200">
+            {title}
+          </h3>
+          {isMultiRepo ? (
+            <div className="flex flex-col gap-2">
+              {githubUrls?.map((repo, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <motion.a
+                    href={repo.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="text-gray-600 dark:text-gray-400 hover:text-[#60a5fa] transition-colors"
+                    aria-label={`View ${repo.label} Source Code`}
+                  >
+                    <FaGithub size={20} />
+                  </motion.a>
+                  <motion.a
+                    href={downloadUrls?.[index].url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="text-gray-600 dark:text-gray-400 hover:text-[#60a5fa] transition-colors"
+                    aria-label={`Download ${downloadUrls?.[index].label}`}
+                  >
+                    <FaDownload size={20} />
+                  </motion.a>
+                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                    {repo.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex gap-3">
+              <motion.a
+                href={githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="text-gray-600 dark:text-gray-400 hover:text-[#60a5fa] transition-colors"
+                aria-label="View Source Code"
+              >
+                <FaGithub size={20} />
+              </motion.a>
+              {demoUrl && (
+                <motion.a
+                  href={demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="text-gray-600 dark:text-gray-400 hover:text-[#60a5fa] transition-colors"
+                  aria-label="View Live Demo"
+                >
+                  <FaExternalLinkAlt size={18} />
+                </motion.a>
+              )}
+            </div>
+          )}
+        </div>
+        
+        <p className="text-gray-600 dark:text-gray-400 mb-4">
           {description}
         </p>
-        <div className="flex flex-wrap gap-2 mb-4">
+        
+        <div className="flex flex-wrap gap-2">
           {tags.map((tag, index) => (
             <span
               key={index}
-              className="px-3 py-1 bg-[#f5f6fa] dark:bg-[#2d3436] text-[#636e72] dark:text-[#b2bec3] rounded-full text-sm"
+              className="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded-full"
             >
               {tag}
             </span>
           ))}
         </div>
-        <motion.a
-          href={link}
-          className="inline-flex items-center text-[#4ecdc4] hover:text-[#ff6b6b] transition-colors"
-          whileHover={{ x: 5 }}
-        >
-          View Project
-          <svg
-            className="w-4 h-4 ml-2"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </motion.a>
       </div>
     </motion.div>
   );
-};
-
-export default ProjectCard; 
+} 

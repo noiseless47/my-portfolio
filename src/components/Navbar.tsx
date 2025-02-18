@@ -1,57 +1,61 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FaSun, FaMoon } from 'react-icons/fa';
 import { useTheme } from '@/context/ThemeContext';
 
-const Navbar = () => {
-  const pathname = usePathname();
+export default function Navbar() {
+  const [isScrolled, setIsScrolled] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const pathname = usePathname();
 
-  const links = [
+  const navItems = [
     { href: '/', label: 'Home' },
     { href: '/projects', label: 'Projects' },
-    { href: '/contact', label: 'Contact' },
+    { href: '/education', label: 'Education' },
+    { href: '/experience', label: 'Experience' },
+    { href: '/contact', label: 'Contact' }
   ];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/20 dark:bg-black/20 backdrop-blur-lg transition-all duration-300">
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      isScrolled ? 'bg-white/80 dark:bg-[#0f0f0f]/80 backdrop-blur-md shadow-lg' : 'bg-transparent'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="text-xl font-bold bg-gradient-to-r from-[#60a5fa] to-[#a78bfa] bg-clip-text text-transparent">
+          <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-[#60a5fa] to-[#a78bfa] bg-clip-text text-transparent">
             Asish Kumar Yeleti
           </Link>
           
-          <div className="flex items-center gap-8">
-            {links.map((link) => (
+          <div className="flex items-center space-x-8">
+            {navItems.map((item) => (
               <Link
-                key={link.href}
-                href={link.href}
-                className="relative"
+                key={item.href}
+                href={item.href}
+                className={`text-gray-600 dark:text-gray-400 hover:text-[#60a5fa] transition-colors ${
+                  pathname === item.href ? 'text-[#60a5fa]' : ''
+                }`}
               >
-                <span className="text-[#2d3436] dark:text-[#dfe6e9] hover:text-[#0984e3] dark:hover:text-[#74b9ff] transition-colors">
-                  {link.label}
-                </span>
-                {pathname === link.href && (
-                  <motion.div
-                    layoutId="underline"
-                    className="absolute left-0 right-0 h-0.5 bg-[#4ecdc4]"
-                    style={{ bottom: '-4px' }}
-                  />
-                )}
+                {item.label}
               </Link>
             ))}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300"
-              aria-label="Toggle theme"
+              className="text-gray-600 dark:text-gray-400 hover:text-[#60a5fa] transition-colors"
             >
               {theme === 'dark' ? (
-                <FaSun className="text-gray-300 hover:text-white transition-colors duration-300" size={20} />
+                <i className="fas fa-sun text-xl"></i>
               ) : (
-                <FaMoon className="text-gray-600 hover:text-black transition-colors duration-300" size={20} />
+                <i className="fas fa-moon text-xl"></i>
               )}
             </button>
           </div>
@@ -59,6 +63,4 @@ const Navbar = () => {
       </div>
     </nav>
   );
-};
-
-export default Navbar; 
+} 

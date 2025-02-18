@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { GeistSans } from 'geist/font/sans'
+import { GeistMono } from 'geist/font/mono'
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/context/ThemeContext";
-
-const geist = Geist({
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Asish Kumar Yeleti - Portfolio",
@@ -20,14 +17,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={GeistSans.className}>
       <head>
         <link 
           rel="stylesheet" 
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" 
         />
       </head>
-      <body className={`${geist.className} dark:bg-[#0f0f0f] bg-[#fafafa] text-[#2d3436] dark:text-[#dfe6e9] transition-colors duration-300`}>
+      <body className={`${GeistMono.className} dark:bg-[#0f0f0f] bg-[#fafafa] text-[#2d3436] dark:text-[#dfe6e9] transition-colors duration-300`}>
         <ThemeProvider>
           <Navbar />
           <div className="min-h-screen flex flex-col">

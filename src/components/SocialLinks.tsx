@@ -2,8 +2,9 @@
 
 import { motion } from 'framer-motion';
 import { Variants } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaInstagram, FaDiscord } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaInstagram, FaDiscord, FaEnvelope } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
+import { SiLeetcode } from 'react-icons/si';
 
 const SocialLinks = () => {
   const iconVariants: Variants = {
@@ -18,29 +19,39 @@ const SocialLinks = () => {
   };
 
   const socialLinks = [
+    {
+      icon: <FaEnvelope size={24} />,
+      url: "mailto:asishyeleti2005@gmail.com",
+      label: "Email"
+    },
     { 
       icon: <FaGithub size={24} />,
-      url: "https://github.com/yourusername",
+      url: "https://github.com/noiseless47",
       label: "GitHub"
     },
     { 
       icon: <FaLinkedin size={24} />,
-      url: "https://linkedin.com/in/yourusername",
+      url: "https://linkedin.com/in/asishkumaryeleti",
       label: "LinkedIn"
+    },
+    {
+      icon: <SiLeetcode size={24} />,
+      url: "https://leetcode.com/noiseless47",
+      label: "LeetCode"
     },
     { 
       icon: <FaXTwitter size={24} />,
-      url: "https://x.com/yourusername",
+      url: "https://x.com/AsishYeleti",
       label: "X (Twitter)"
     },
     { 
       icon: <FaInstagram size={24} />,
-      url: "https://instagram.com/yourusername",
+      url: "https://instagram.com/asish.k.y",
       label: "Instagram"
     },
     { 
       icon: <FaDiscord size={24} />,
-      url: "https://discord.com/users/yourusername",
+      url: "https://discord.com/invite/YGXX4ue5eb",
       label: "Discord"
     }
   ];
@@ -51,7 +62,7 @@ const SocialLinks = () => {
         <motion.a
           key={index}
           href={social.url}
-          target="_blank"
+          target={social.url.startsWith('mailto') ? '_self' : '_blank'}
           rel="noopener noreferrer"
           variants={iconVariants}
           whileHover="hover"

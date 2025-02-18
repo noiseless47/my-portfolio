@@ -1,86 +1,96 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { type NextPage } from 'next';
+import { FaEnvelope, FaLinkedin, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 
-const formVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      staggerChildren: 0.1
+export default function ContactPage() {
+  const contactInfo = [
+    {
+      icon: <FaEnvelope className="text-2xl" />,
+      label: "Email",
+      value: "asishyeleti2005@gmail.com",
+      link: "mailto:asishyeleti2005@gmail.com",
+      description: "Feel free to email me anytime"
+    },
+    {
+      icon: <FaLinkedin className="text-2xl" />,
+      label: "LinkedIn",
+      value: "asishkumaryeleti",
+      link: "https://www.linkedin.com/in/asishkumaryeleti",
+      description: "Let's connect professionally"
+    },
+    {
+      icon: <FaPhone className="text-2xl" />,
+      label: "Phone",
+      value: "+91 99164 13430",
+      link: "tel:+919916413430",
+      description: "Available during business hours"
+    },
+    {
+      icon: <FaMapMarkerAlt className="text-2xl" />,
+      label: "Location",
+      value: "Bengaluru, Karnataka",
+      description: "Currently based in"
     }
-  }
-};
+  ];
 
-const inputVariants = {
-  hidden: { opacity: 0, x: -20 },
-  visible: { opacity: 1, x: 0 }
-};
-
-const Contact: NextPage = () => {
   return (
-    <div className="min-h-screen bg-white dark:bg-gradient-to-b dark:from-[#0f0f0f] dark:via-[#151515] dark:to-[#0f0f0f] transition-colors duration-300 py-20">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen flex flex-col pt-28 pb-16 bg-white dark:bg-gradient-to-b dark:from-[#0f0f0f] dark:via-[#151515] dark:to-[#0f0f0f]">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={formVariants}
-          className="bg-gray-50/50 dark:bg-white/5 backdrop-blur-lg rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-800 transition-all duration-300"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
         >
-          <motion.h1 
-            variants={inputVariants}
-            className="text-5xl font-bold text-center mb-4 bg-gradient-to-r from-[#ff6b6b] to-[#4ecdc4] bg-clip-text text-transparent"
-          >
+          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-[#60a5fa] to-[#a78bfa] bg-clip-text text-transparent">
             Get in Touch
-          </motion.h1>
-          <motion.p 
-            variants={inputVariants}
-            className="text-gray-600 dark:text-gray-400 text-center mb-8"
-          >
-            I&apos;m always open to new opportunities and collaborations
-          </motion.p>
-          
-          <form className="space-y-6">
-            <motion.div variants={inputVariants}>
-              <label htmlFor="name" className="block text-gray-700 dark:text-gray-300 mb-2">Name</label>
-              <input
-                type="text"
-                id="name"
-                className="w-full px-4 py-2 bg-white dark:bg-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4ecdc4] text-gray-800 dark:text-white border border-gray-200 dark:border-gray-700 transition-all duration-300"
-              />
-            </motion.div>
-            <motion.div variants={inputVariants}>
-              <label htmlFor="email" className="block text-gray-700 dark:text-gray-300 mb-2">Email</label>
-              <input
-                type="email"
-                id="email"
-                className="w-full px-4 py-2 bg-white dark:bg-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4ecdc4] text-gray-800 dark:text-white border border-gray-200 dark:border-gray-700"
-              />
-            </motion.div>
-            <motion.div variants={inputVariants}>
-              <label htmlFor="message" className="block text-gray-700 dark:text-gray-300 mb-2">Message</label>
-              <textarea
-                id="message"
-                rows={5}
-                className="w-full px-4 py-2 bg-white dark:bg-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#4ecdc4] text-gray-800 dark:text-white border border-gray-200 dark:border-gray-700"
-              ></textarea>
-            </motion.div>
-            <motion.button
-              variants={inputVariants}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="w-full py-3 bg-gradient-to-r from-[#ff6b6b] to-[#4ecdc4] rounded-lg text-white font-semibold transition-transform"
-            >
-              Send Message
-            </motion.button>
-          </form>
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            I'm always open to new opportunities and collaborations. Feel free to reach out through any of the following channels.
+          </p>
         </motion.div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {contactInfo.map((info, index) => (
+            <motion.div
+              key={info.label}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow"
+            >
+              <div className="flex items-start space-x-4">
+                <div className="w-12 h-12 flex items-center justify-center bg-gradient-to-r from-[#60a5fa] to-[#a78bfa] rounded-full text-white">
+                  {info.icon}
+                </div>
+                <div>
+                  <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-1">
+                    {info.label}
+                  </h2>
+                  {info.link ? (
+                    <a
+                      href={info.link}
+                      target={info.link.startsWith('mailto') || info.link.startsWith('tel') ? '_self' : '_blank'}
+                      rel="noopener noreferrer"
+                      className="text-[#60a5fa] dark:text-[#a78bfa] hover:underline block mb-2"
+                    >
+                      {info.value}
+                    </a>
+                  ) : (
+                    <p className="text-gray-600 dark:text-gray-400 mb-2">
+                      {info.value}
+                    </p>
+                  )}
+                  <p className="text-sm text-gray-500 dark:text-gray-500">
+                    {info.description}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </div>
+    </main>
   );
-};
-
-export default Contact; 
+} 
