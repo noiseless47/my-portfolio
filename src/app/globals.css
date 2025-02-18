@@ -25,3 +25,19 @@ body {
     @apply transition-colors duration-300;
   }
 }
+
+@layer utilities {
+  .bg-grid-gray-200\/50 {
+    background-size: 40px 40px;
+    background-image: 
+      linear-gradient(to right, rgb(229 231 235 / 0.5) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(229 231 235 / 0.5) 1px, transparent 1px);
+  }
+
+  .bg-grid-white\/\[0\.05\] {
+    background-size: 40px 40px;
+    background-image: 
+      linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  }
+}

@@ -35,37 +35,37 @@ export default function ContactPage() {
   ];
 
   return (
-    <main className="min-h-screen flex flex-col pt-28 pb-16 bg-white dark:bg-gradient-to-b dark:from-[#0f0f0f] dark:via-[#151515] dark:to-[#0f0f0f]">
+    <main className="min-h-screen flex flex-col pt-20 md:pt-28 pb-16 bg-white dark:bg-gradient-to-b dark:from-[#0f0f0f] dark:via-[#151515] dark:to-[#0f0f0f]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center mb-8 md:mb-16"
         >
-          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-[#60a5fa] to-[#a78bfa] bg-clip-text text-transparent">
+          <h1 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#60a5fa] to-[#a78bfa] bg-clip-text text-transparent">
             Get in Touch
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto px-4">
             I'm always open to new opportunities and collaborations. Feel free to reach out through any of the following channels.
           </p>
         </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           {contactInfo.map((info, index) => (
             <motion.div
               key={info.label}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow"
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 md:p-6 hover:shadow-xl transition-shadow"
             >
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 flex items-center justify-center bg-gradient-to-r from-[#60a5fa] to-[#a78bfa] rounded-full text-white">
+              <div className="flex items-start space-x-3 md:space-x-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-gradient-to-r from-[#60a5fa] to-[#a78bfa] rounded-full text-white">
                   {info.icon}
                 </div>
-                <div>
-                  <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-1">
+                <div className="flex-1 min-w-0">
+                  <h2 className="text-lg md:text-xl font-semibold text-gray-800 dark:text-gray-200 mb-1">
                     {info.label}
                   </h2>
                   {info.link ? (
@@ -73,12 +73,12 @@ export default function ContactPage() {
                       href={info.link}
                       target={info.link.startsWith('mailto') || info.link.startsWith('tel') ? '_self' : '_blank'}
                       rel="noopener noreferrer"
-                      className="text-[#60a5fa] dark:text-[#a78bfa] hover:underline block mb-2"
+                      className="text-[#60a5fa] dark:text-[#a78bfa] hover:underline block mb-2 break-words"
                     >
                       {info.value}
                     </a>
                   ) : (
-                    <p className="text-gray-600 dark:text-gray-400 mb-2">
+                    <p className="text-gray-600 dark:text-gray-400 mb-2 break-words">
                       {info.value}
                     </p>
                   )}
